@@ -1,11 +1,23 @@
-const getAll = () => {
+const db = require('../../data/db-config');
+
+exports.getAll = () => {
   // DO YOUR MAGIC
+  return db('cars');
 }
 
-const getById = () => {
+exports.getById = id => {
   // DO YOUR MAGIC
+  return db('cars').where('id', id).first();
 }
 
-const create = () => {
+exports.create = car => {
   // DO YOUR MAGIC
+  return db('cars').insert(car)
+    .then(result => {
+      return this.getById(result[0]);
+    });
+}
+
+exports.findByValue = filter => {
+  return db('cars').where(filter);
 }
